@@ -7,7 +7,7 @@ export default function DashboardClient() {
         <AdminRouteScaffold
             eyebrow="Monitoring"
             title="Dashboard"
-            description="Pantau ringkasan proyek konsultasi tambang, progres deliverable, isu lapangan, dan status eskalasi manajemen."
+            description="Pantau ringkasan proyek, progres tugas, status survei, dan indikator kinerja operasional."
         />
     );
 }

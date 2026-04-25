@@ -22,10 +22,10 @@ import { sidebarGroups } from "@/config/sidebar";
 import { filterSidebarGroups, flattenSidebarGroups, getSidebarAccessContext } from "@/lib/sidebar";
 import type { ISession } from "@/types";
 
-const getDisplayName = (session: ISession | null) => session?.user?.user?.name || session?.user?.user_fullname || "Admin UmrohQU";
+const getDisplayName = (session: ISession | null) => session?.user?.user?.name || session?.user?.user_fullname || "Akbar Faishal";
 
 const getRoleLabel = (session: ISession | null) => {
-    const role = session?.session?.auth_role || session?.user?.user?.role || "admin";
+    const role = session?.session?.auth_role || session?.user?.user?.role?.name || "Super Admin";
 
     return role
         .split("-")

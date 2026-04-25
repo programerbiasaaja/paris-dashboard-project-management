@@ -2,12 +2,12 @@
 
 import { AdminRouteScaffold } from "@/components/dashboard/admin-route-scaffold";
 
-export default function ClientsClient() {
+export default function SettingsClient() {
     return (
         <AdminRouteScaffold
             eyebrow="Master Data"
-            title="Klien"
-            description="Kelola data klien, informasi kontak PIC, alamat, dan histori proyek yang terkait."
+            title="Pengaturan"
+            description="Konfigurasi pengaturan umum sistem, preferensi aplikasi, dan parameter operasional."
         />
     );
 }

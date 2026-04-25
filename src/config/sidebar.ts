@@ -2,18 +2,28 @@ import {
     Building2Icon,
     CalendarDaysIcon,
     ChartNoAxesCombinedIcon,
+    ClipboardCheckIcon,
     ClipboardListIcon,
     FileTextIcon,
     FolderKanbanIcon,
-    HardHatIcon,
     LayoutGridIcon,
+    ListChecksIcon,
     Settings2Icon,
+    ShieldCheckIcon,
     UsersRoundIcon,
 } from "lucide-react";
 
+import { EUserRole } from "@/types/enums";
 import type { SidebarMenuGroup } from "@/types/sidebar";
 
+const ALL_ROLES = [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SURVEYOR, EUserRole.FINANCE];
+const MANAGEMENT_ROLES = [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.FINANCE];
+const ADMIN_ONLY = [EUserRole.SUPER_ADMIN];
+
 export const sidebarGroups: SidebarMenuGroup[] = [
+    // =========================================
+    // MONITORING
+    // =========================================
     {
         id: "monitoring",
         label: "Monitoring",
@@ -24,21 +34,21 @@ export const sidebarGroups: SidebarMenuGroup[] = [
                 href: "/",
                 exact: true,
                 icon: LayoutGridIcon,
-                access: {
-                    roles: ["admin", "ops", "finance", "support", "management", "super-admin"],
-                },
+                access: { roles: ALL_ROLES },
             },
             {
                 id: "laporan-eksekutif",
                 label: "Laporan Eksekutif",
                 href: "/reports/executive",
                 icon: ChartNoAxesCombinedIcon,
-                access: {
-                    roles: ["admin", "finance", "management", "super-admin"],
-                },
+                access: { roles: MANAGEMENT_ROLES },
             },
         ],
     },
+
+    // =========================================
+    // MANAJEMEN PROYEK (Project, Phase, Task)
+    // =========================================
     {
         id: "project-management",
         label: "Manajemen Proyek",
@@ -48,78 +58,90 @@ export const sidebarGroups: SidebarMenuGroup[] = [
                 label: "Proyek",
                 href: "/projects",
                 icon: FolderKanbanIcon,
-                access: {
-                    roles: ["admin", "ops", "finance", "support", "management", "super-admin"],
-                },
-            },
-            {
-                id: "tugas-lapangan",
-                label: "Tugas Lapangan",
-                href: "/field-tasks",
-                icon: ClipboardListIcon,
-                access: {
-                    roles: ["admin", "ops", "support", "management", "super-admin"],
-                },
+                access: { roles: ALL_ROLES },
             },
             {
                 id: "jadwal-proyek",
-                label: "Jadwal Proyek",
-                href: "/project-schedules",
+                label: "Jadwal & Fase",
+                href: "/projects/schedules",
                 icon: CalendarDaysIcon,
-                access: {
-                    roles: ["admin", "ops", "support", "management", "super-admin"],
-                },
+                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER] },
             },
             {
-                id: "dokumen-proyek",
-                label: "Dokumen Proyek",
-                href: "/project-documents",
-                icon: FileTextIcon,
-                access: {
-                    roles: ["admin", "ops", "support", "management", "super-admin"],
-                },
+                id: "tugas",
+                label: "Tugas",
+                href: "/tasks",
+                icon: ClipboardListIcon,
+                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SURVEYOR] },
             },
         ],
     },
+
+    // =========================================
+    // SURVEI (SurveyQuestion, Submission, Answer, Template)
+    // =========================================
     {
-        id: "administrasi",
-        label: "Administrasi",
+        id: "survey",
+        label: "Survei",
+        items: [
+            {
+                id: "pengisian-survei",
+                label: "Pengisian Survei",
+                href: "/surveys/submissions",
+                icon: ClipboardCheckIcon,
+                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SURVEYOR] },
+            },
+            {
+                id: "template-survei",
+                label: "Template Survei",
+                href: "/surveys/templates",
+                icon: FileTextIcon,
+                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER] },
+            },
+            {
+                id: "review-survei",
+                label: "Review Survei",
+                href: "/surveys/reviews",
+                icon: ListChecksIcon,
+                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER] },
+            },
+        ],
+    },
+
+    // =========================================
+    // MASTER DATA (Client, User, Role)
+    // =========================================
+    {
+        id: "master-data",
+        label: "Master Data",
         items: [
             {
                 id: "klien",
                 label: "Klien",
                 href: "/clients",
                 icon: Building2Icon,
-                access: {
-                    roles: ["admin", "ops", "finance", "management", "super-admin"],
-                },
+                access: { roles: MANAGEMENT_ROLES },
             },
             {
-                id: "site-tambang",
-                label: "Site Tambang",
-                href: "/mining-sites",
-                icon: HardHatIcon,
-                access: {
-                    roles: ["admin", "ops", "support", "management", "super-admin"],
-                },
-            },
-            {
-                id: "tim-konsultan",
-                label: "Konsultan",
-                href: "/users/consultants",
+                id: "pengguna",
+                label: "Pengguna",
+                href: "/users",
                 icon: UsersRoundIcon,
-                access: {
-                    roles: ["admin", "super-admin"],
-                },
+                access: { roles: ADMIN_ONLY },
             },
             {
-                id: "manajemen-akses",
-                label: "Manajemen Akses",
-                href: "/settings/access-control",
+                id: "role-akses",
+                label: "Role & Akses",
+                href: "/roles",
+                icon: ShieldCheckIcon,
+                access: { roles: ADMIN_ONLY },
+            },
+            {
+                id: "pengaturan",
+                label: "Pengaturan",
+                href: "/settings",
                 icon: Settings2Icon,
-                access: {
-                    roles: ["admin", "super-admin"],
-                },
+                access: { roles: ADMIN_ONLY },
             },
         ],
     },

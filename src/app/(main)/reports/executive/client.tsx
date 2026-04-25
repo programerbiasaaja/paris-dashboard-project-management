@@ -7,7 +7,7 @@ export default function ExecutiveReportClient() {
         <AdminRouteScaffold
             eyebrow="Monitoring"
             title="Laporan Eksekutif"
-            description="Sajikan status portofolio proyek, progres pekerjaan, risiko utama, dan keputusan yang membutuhkan perhatian direksi."
+            description="Sajikan ringkasan eksekutif: status portofolio proyek, anggaran vs realisasi, progres survei, dan eskalasi."
         />
     );
 }
