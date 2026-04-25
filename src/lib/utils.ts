@@ -108,3 +108,8 @@ export const getNameFile = (url: string) => {
 
     return lastArr;
 };
+
+function formatRupiah(value: number) {
+    if (value === 0) return "-";
+    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
+}
