@@ -22,7 +22,7 @@ import { sidebarGroups } from "@/config/sidebar";
 import { filterSidebarGroups, flattenSidebarGroups, getSidebarAccessContext } from "@/lib/sidebar";
 import type { ISession } from "@/types";
 
-const getDisplayName = (session: ISession | null) => session?.user?.user?.name || session?.user?.user_fullname || "Akbar Faishal";
+const getDisplayName = (session: ISession | null) => session?.user?.user?.name || session?.user?.user_fullname || "Akbar Anugrah";
 
 const getRoleLabel = (session: ISession | null) => {
     const role = session?.session?.auth_role || session?.user?.user?.role?.name || "Super Admin";
@@ -100,7 +100,7 @@ export function AppTopbar({ session }: { session: ISession | null }) {
                                 className="border-input hover:bg-muted/40 focus-visible:border-ring focus-visible:ring-ring/50 relative flex h-8 max-w-sm min-w-0 flex-1 items-center rounded-lg border bg-transparent px-3 text-left text-xs transition-colors outline-none focus-visible:ring-3"
                             >
                                 <SearchIcon className="text-muted-foreground mr-2 size-3.5 shrink-0" />
-                                <span className="text-muted-foreground truncate text-xs">Cari menu dashboard...</span>
+                                <span className="text-muted-foreground truncate text-xs">Cari menu dashboard</span>
                                 <kbd className="border-input bg-muted/60 text-muted-foreground ml-auto hidden rounded-md border px-1.5 py-0.5 text-[10px] font-medium lg:inline-flex">
                                     Ctrl K
                                 </kbd>

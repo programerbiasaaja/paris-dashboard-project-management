@@ -15,8 +15,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: "Boilerplate Dashboard NextJS",
-    description: "Boilerplate Dashboard NextJS",
+    title: "PARIS Dashboard",
+    description: "A project management web application for PARIS (PT Padu Riset Nusantara), a management consulting company.",
 };
 
 export default function RootLayout({

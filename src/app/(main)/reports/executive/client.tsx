@@ -1,13 +1,33 @@
 "use client";
 
 import { AdminRouteScaffold } from "@/components/dashboard/admin-route-scaffold";
+import {
+    ExecutiveKpiCards,
+    PortfolioTable,
+    BudgetRealizationChart,
+    SurveyProgressChart,
+    EscalationTable,
+} from "@/components/dashboard/executive";
 
 export default function ExecutiveReportClient() {
     return (
-        <AdminRouteScaffold
-            eyebrow="Monitoring"
-            title="Laporan Eksekutif"
-            description="Sajikan ringkasan eksekutif: status portofolio proyek, anggaran vs realisasi, progres survei, dan eskalasi."
-        />
+        <div className="flex flex-1 flex-col gap-5">
+            <AdminRouteScaffold
+                eyebrow="Monitoring"
+                title="Laporan Eksekutif"
+                description="Tinjauan strategis portofolio proyek: KPI anggaran dan penyerapan biaya per kuartal, tingkat persetujuan survei per proyek, status ketepatan waktu, dan log eskalasi aktif."
+            />
+
+            <ExecutiveKpiCards />
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <BudgetRealizationChart />
+                <SurveyProgressChart />
+            </div>
+
+            <PortfolioTable />
+
+            <EscalationTable />
+        </div>
     );
 }

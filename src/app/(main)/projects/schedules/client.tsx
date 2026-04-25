@@ -6,8 +6,8 @@ export default function ProjectSchedulesClient() {
     return (
         <AdminRouteScaffold
             eyebrow="Manajemen Proyek"
-            title="Jadwal & Fase"
-            description="Kelola fase proyek (WBS), urutan pekerjaan, dan timeline pelaksanaan per fase."
+            title="Jadwal & Kegiatan"
+            description="Kelola kegiatan proyek, urutan kegiatan, dan timeline pelaksanaan per kegiatan."
         />
     );
 }

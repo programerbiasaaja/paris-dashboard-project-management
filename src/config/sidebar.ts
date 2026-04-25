@@ -62,7 +62,7 @@ export const sidebarGroups: SidebarMenuGroup[] = [
             },
             {
                 id: "jadwal-proyek",
-                label: "Jadwal & Fase",
+                label: "Jadwal & Kegiatan",
                 href: "/projects/schedules",
                 icon: CalendarDaysIcon,
                 access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER] },
