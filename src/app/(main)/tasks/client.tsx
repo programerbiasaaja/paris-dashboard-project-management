@@ -7,7 +7,7 @@ export default function TasksClient() {
         <AdminRouteScaffold
             eyebrow="Manajemen Proyek"
             title="Tugas"
-            description="Kelola tugas dan kegiatan lapangan, penugasan surveyor, bobot pekerjaan, anggaran, dan status progres."
+            description="Kelola tugas dan kegiatan lapangan, penugasan Surveior, bobot pekerjaan, anggaran, dan status progres."
         />
     );
 }

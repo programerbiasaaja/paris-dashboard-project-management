@@ -16,7 +16,7 @@ import {
 import { EUserRole } from "@/types/enums";
 import type { SidebarMenuGroup } from "@/types/sidebar";
 
-const ALL_ROLES = [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SURVEYOR, EUserRole.FINANCE];
+const ALL_ROLES = [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SurveiOR, EUserRole.FINANCE];
 const MANAGEMENT_ROLES = [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.FINANCE];
 const ADMIN_ONLY = [EUserRole.SUPER_ADMIN];
 
@@ -72,36 +72,36 @@ export const sidebarGroups: SidebarMenuGroup[] = [
                 label: "Tugas",
                 href: "/tasks",
                 icon: ClipboardListIcon,
-                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SURVEYOR] },
+                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SurveiOR] },
             },
         ],
     },
 
     // =========================================
-    // SURVEI (SurveyQuestion, Submission, Answer, Template)
+    // SURVEI (SurveiQuestion, Submission, Answer, Template)
     // =========================================
     {
-        id: "survey",
+        id: "Survei",
         label: "Survei",
         items: [
             {
                 id: "pengisian-survei",
                 label: "Pengisian Survei",
-                href: "/surveys/submissions",
+                href: "/Surveis/submissions",
                 icon: ClipboardCheckIcon,
-                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SURVEYOR] },
+                access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER, EUserRole.SurveiOR] },
             },
             {
                 id: "template-survei",
                 label: "Template Survei",
-                href: "/surveys/templates",
+                href: "/Surveis/templates",
                 icon: FileTextIcon,
                 access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER] },
             },
             {
                 id: "review-survei",
                 label: "Review Survei",
-                href: "/surveys/reviews",
+                href: "/Surveis/reviews",
                 icon: ListChecksIcon,
                 access: { roles: [EUserRole.SUPER_ADMIN, EUserRole.PROJECT_MANAGER] },
             },

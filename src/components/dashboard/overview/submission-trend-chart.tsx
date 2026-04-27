@@ -2,7 +2,7 @@
 
 import ReactECharts from "echarts-for-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { surveySubmissionTrend } from "./dummy-data";
+import { SurveiSubmissionTrend } from "./dummy-data";
 
 export function SubmissionTrendChart() {
     const option = {
@@ -15,7 +15,7 @@ export function SubmissionTrendChart() {
         grid: { left: 16, right: 16, bottom: 48, top: 16, containLabel: true },
         xAxis: {
             type: "category",
-            data: surveySubmissionTrend.months,
+            data: SurveiSubmissionTrend.months,
             axisLabel: { fontSize: 11 },
         },
         yAxis: {
@@ -27,21 +27,21 @@ export function SubmissionTrendChart() {
                 name: "Disetujui",
                 type: "bar",
                 stack: "total",
-                data: surveySubmissionTrend.approved,
+                data: SurveiSubmissionTrend.approved,
                 itemStyle: { color: "#16a34a" },
             },
             {
                 name: "Menunggu",
                 type: "bar",
                 stack: "total",
-                data: surveySubmissionTrend.pending,
+                data: SurveiSubmissionTrend.pending,
                 itemStyle: { color: "#f59e0b" },
             },
             {
                 name: "Ditolak",
                 type: "bar",
                 stack: "total",
-                data: surveySubmissionTrend.rejected,
+                data: SurveiSubmissionTrend.rejected,
                 itemStyle: { color: "#ef4444", borderRadius: [4, 4, 0, 0] },
             },
         ],

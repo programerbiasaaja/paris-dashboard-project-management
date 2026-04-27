@@ -1,5 +1,5 @@
 import { EProjectStatus, ETaskStatus, ESubmissionStatus } from "@/types/enums";
-import { financialSummary, surveyTotals, projects } from "@/components/dashboard/data/shared";
+import { financialSummary, SurveiTotals, projects } from "@/components/dashboard/data/shared";
 
 // Dashboard-specific operational stats (tasks, users — not in Executive Report)
 export const overviewStats = {
@@ -12,10 +12,10 @@ export const overviewStats = {
     processTasks: 61,
     holdTasks: 18,
     followUpTasks: 13,
-    totalSurveySubmissions: surveyTotals.total,
-    approvedSubmissions: surveyTotals.approved,
-    pendingSubmissions: surveyTotals.pending,
-    rejectedSubmissions: surveyTotals.rejected,
+    totalSurveiSubmissions: SurveiTotals.total,
+    approvedSubmissions: SurveiTotals.approved,
+    pendingSubmissions: SurveiTotals.pending,
+    rejectedSubmissions: SurveiTotals.rejected,
     totalBudget: financialSummary.totalBudget,
     totalCost: financialSummary.totalCost,
     totalContractValue: financialSummary.totalContractValue,
@@ -37,9 +37,9 @@ export const taskStatusData = [
 ];
 
 export const submissionStatusData = [
-    { value: surveyTotals.approved, name: "Disetujui", itemStyle: { color: "#16a34a" } },
-    { value: surveyTotals.pending, name: "Menunggu", itemStyle: { color: "#f59e0b" } },
-    { value: surveyTotals.rejected, name: "Ditolak", itemStyle: { color: "#ef4444" } },
+    { value: SurveiTotals.approved, name: "Disetujui", itemStyle: { color: "#16a34a" } },
+    { value: SurveiTotals.pending, name: "Menunggu", itemStyle: { color: "#f59e0b" } },
+    { value: SurveiTotals.rejected, name: "Ditolak", itemStyle: { color: "#ef4444" } },
 ];
 
 export const monthlyProjectProgress = {
@@ -67,7 +67,7 @@ export const taskCompletionTrend = {
     created: [9, 11, 13, 10, 16, 13, 19, 21],
 };
 
-export const surveySubmissionTrend = {
+export const SurveiSubmissionTrend = {
     months: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun"],
     approved: [28, 34, 31, 42, 39, 48],
     pending: [8, 6, 9, 5, 7, 4],
@@ -79,7 +79,7 @@ export const topProjects = projects.slice(0, 5);
 
 export const userRoleDistribution = [
     { value: 8, name: "Project Manager", itemStyle: { color: "#2563eb" } },
-    { value: 16, name: "Surveyor", itemStyle: { color: "#0ea5e9" } },
+    { value: 16, name: "Surveior", itemStyle: { color: "#0ea5e9" } },
     { value: 4, name: "Finance", itemStyle: { color: "#8b5cf6" } },
     { value: 3, name: "Super Admin", itemStyle: { color: "#f59e0b" } },
 ];

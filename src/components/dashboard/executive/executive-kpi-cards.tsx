@@ -45,8 +45,8 @@ const kpis = [
     },
     {
         label: "Pengisian Survei",
-        value: executiveKpis.totalSurveySubmissions,
-        sub: `${executiveKpis.surveyApprovalRate}% tingkat persetujuan`,
+        value: executiveKpis.totalSurveiSubmissions,
+        sub: `${executiveKpis.SurveiApprovalRate}% tingkat persetujuan`,
         icon: ClipboardCheck,
         color: "text-violet-600",
         bg: "bg-violet-100 dark:bg-violet-900/20",

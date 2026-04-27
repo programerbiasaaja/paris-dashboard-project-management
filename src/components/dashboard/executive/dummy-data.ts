@@ -1,5 +1,5 @@
 import { ESubmissionStatus } from "@/types/enums";
-import { financialSummary, surveyTotals, projects } from "@/components/dashboard/data/shared";
+import { financialSummary, SurveiTotals, projects } from "@/components/dashboard/data/shared";
 
 // Executive-specific KPIs: financial, portfolio health, SLA, escalations
 export const executiveKpis = {
@@ -13,11 +13,11 @@ export const executiveKpis = {
     onHoldProjects: 3,
     onTimeProjects: 11,
     delayedProjects: 3,
-    totalSurveySubmissions: surveyTotals.total,
-    approvedSubmissions: surveyTotals.approved,
-    pendingSubmissions: surveyTotals.pending,
-    rejectedSubmissions: surveyTotals.rejected,
-    surveyApprovalRate: 79.5,
+    totalSurveiSubmissions: SurveiTotals.total,
+    approvedSubmissions: SurveiTotals.approved,
+    pendingSubmissions: SurveiTotals.pending,
+    rejectedSubmissions: SurveiTotals.rejected,
+    SurveiApprovalRate: 79.5,
     totalEscalations: 5,
     resolvedEscalations: 2,
     openEscalations: 3,
@@ -35,8 +35,8 @@ export const budgetRealizationByQuarter = {
     cost: [3_100, 3_720, 3_890, 1_720],
 };
 
-// Survey breakdown per project — executive view, not shown on dashboard
-export const surveyProgressByProject = [
+// Survei breakdown per project — executive view, not shown on dashboard
+export const SurveiProgressByProject = [
     { project: "Rehab DAS Borneo Prima", approved: 48, pending: 6, rejected: 3 },
     { project: "Reklamasi Tambang Batubara", approved: 62, pending: 8, rejected: 4 },
     { project: "Survei Topografi Kalimantan", approved: 71, pending: 12, rejected: 5 },

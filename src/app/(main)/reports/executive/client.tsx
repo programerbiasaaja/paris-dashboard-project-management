@@ -1,13 +1,7 @@
 "use client";
 
 import { AdminRouteScaffold } from "@/components/dashboard/admin-route-scaffold";
-import {
-    ExecutiveKpiCards,
-    PortfolioTable,
-    BudgetRealizationChart,
-    SurveyProgressChart,
-    EscalationTable,
-} from "@/components/dashboard/executive";
+import { ExecutiveKpiCards, PortfolioTable, BudgetRealizationChart, SurveiProgressChart, EscalationTable } from "@/components/dashboard/executive";
 
 export default function ExecutiveReportClient() {
     return (
@@ -22,7 +16,7 @@ export default function ExecutiveReportClient() {
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <BudgetRealizationChart />
-                <SurveyProgressChart />
+                <SurveiProgressChart />
             </div>
 
             <PortfolioTable />

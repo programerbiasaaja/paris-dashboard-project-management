@@ -1,5 +1,5 @@
-import SurveyTemplatesClient from "./client";
+import SurveiTemplatesClient from "./client";
 
-export default function SurveyTemplatesPage() {
-    return <SurveyTemplatesClient />;
+export default function SurveiTemplatesPage() {
+    return <SurveiTemplatesClient />;
 }

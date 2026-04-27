@@ -2,7 +2,7 @@
 
 import { AdminRouteScaffold } from "@/components/dashboard/admin-route-scaffold";
 
-export default function SurveyTemplatesClient() {
+export default function SurveiTemplatesClient() {
     return (
         <AdminRouteScaffold
             eyebrow="Survei"

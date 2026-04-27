@@ -2,13 +2,13 @@
 
 import ReactECharts from "echarts-for-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { surveyProgressByProject } from "./dummy-data";
+import { SurveiProgressByProject } from "./dummy-data";
 
-export function SurveyProgressChart() {
-    const projectNames = surveyProgressByProject.map((d) => d.project);
-    const approved = surveyProgressByProject.map((d) => d.approved);
-    const pending = surveyProgressByProject.map((d) => d.pending);
-    const rejected = surveyProgressByProject.map((d) => d.rejected);
+export function SurveiProgressChart() {
+    const projectNames = SurveiProgressByProject.map((d) => d.project);
+    const approved = SurveiProgressByProject.map((d) => d.approved);
+    const pending = SurveiProgressByProject.map((d) => d.pending);
+    const rejected = SurveiProgressByProject.map((d) => d.rejected);
 
     const option = {
         tooltip: {

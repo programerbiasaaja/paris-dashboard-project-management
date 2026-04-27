@@ -7,7 +7,7 @@ export * from "./role";
 export * from "./user";
 export * from "./project";
 export * from "./task";
-export * from "./survey";
+export * from "./Survei";
 export * from "./template";
 
 import type { ILoginSession, ILoginUser } from "./auth";

@@ -7,8 +7,8 @@ export const financialSummary = {
     totalCost: 12_430_000_000,
 };
 
-// Survey submission totals — used by both pages
-export const surveyTotals = {
+// Survei submission totals — used by both pages
+export const SurveiTotals = {
     total: 312,
     approved: 248,
     pending: 42,

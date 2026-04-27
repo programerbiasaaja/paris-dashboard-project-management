@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { CheckCircle2Icon, EditIcon, EyeIcon, LucideIcon, Trash2Icon, XCircleIcon } from "lucide-react";
 import Link from "next/link";
 import type { ComponentProps } from "react";
@@ -13,10 +14,21 @@ type CommonProps = {
 } & Omit<ComponentProps<"button">, "size">;
 
 function IconActionButton({ icon: Icon, tooltip, href, variant, size = "icon", ...props }: CommonProps) {
-    return (
-        <Button variant={variant} size={size} tooltip={tooltip} render={href ? <Link href={href} /> : undefined} {...props}>
+    const button = (
+        <Button variant={variant} size={size} render={href ? <Link href={href} /> : undefined} nativeButton={!href} {...props}>
             <Icon />
         </Button>
+    );
+
+    if (!tooltip) return button;
+
+    return (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger render={button} />
+                <TooltipContent>{tooltip}</TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     );
 }
 

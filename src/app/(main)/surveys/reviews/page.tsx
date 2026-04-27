@@ -1,5 +1,5 @@
-import SurveyReviewsClient from "./client";
+import SurveiReviewsClient from "./client";
 
-export default function SurveyReviewsPage() {
-    return <SurveyReviewsClient />;
+export default function SurveiReviewsPage() {
+    return <SurveiReviewsClient />;
 }

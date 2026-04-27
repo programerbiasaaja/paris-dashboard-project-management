@@ -2,10 +2,10 @@ import type { EQuestionType, ESubmissionStatus } from "./enums";
 import type { IUser } from "./user";
 
 // =====================================
-// SURVEY QUESTION
+// Survei QUESTION
 // =====================================
 
-export interface ISurveyQuestion {
+export interface ISurveiQuestion {
     id: string;
     taskId: string;
     label: string;
@@ -20,10 +20,10 @@ export interface ISurveyQuestion {
 }
 
 // =====================================
-// SURVEY SUBMISSION
+// Survei SUBMISSION
 // =====================================
 
-export interface ISurveySubmission {
+export interface ISurveiSubmission {
     id: string;
     taskId: string;
     reporterId: string;
@@ -34,15 +34,15 @@ export interface ISurveySubmission {
     deleted: boolean;
 }
 
-export interface ISurveySubmissionWithReporter extends ISurveySubmission {
+export interface ISurveiSubmissionWithReporter extends ISurveiSubmission {
     reporter: IUser;
 }
 
 // =====================================
-// SURVEY ANSWER
+// Survei ANSWER
 // =====================================
 
-export interface ISurveyAnswer {
+export interface ISurveiAnswer {
     id: string;
     submissionId: string;
     questionId: string;
@@ -53,6 +53,6 @@ export interface ISurveyAnswer {
     deleted: boolean;
 }
 
-export interface ISurveyAnswerWithQuestion extends ISurveyAnswer {
-    question: ISurveyQuestion;
+export interface ISurveiAnswerWithQuestion extends ISurveiAnswer {
+    question: ISurveiQuestion;
 }

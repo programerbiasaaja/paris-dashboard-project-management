@@ -1,10 +1,10 @@
 import type { EQuestionType } from "./enums";
 
 // =====================================
-// SURVEY TEMPLATE (BANK DATA)
+// Survei TEMPLATE (BANK DATA)
 // =====================================
 
-export interface ISurveyTemplate {
+export interface ISurveiTemplate {
     id: string;
     name: string;
     category: string;
@@ -31,6 +31,6 @@ export interface ITemplateQuestion {
     deleted: boolean;
 }
 
-export interface ISurveyTemplateWithQuestions extends ISurveyTemplate {
+export interface ISurveiTemplateWithQuestions extends ISurveiTemplate {
     questions: ITemplateQuestion[];
 }

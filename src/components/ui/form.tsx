@@ -64,10 +64,15 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
-function FormLabel({ className, ...props }: React.ComponentProps<typeof Label>) {
+function FormLabel({ className, children, ...props }: React.ComponentProps<typeof Label>) {
     const { error, formItemId } = useFormField();
 
-    return <Label data-slot="form-label" className={cn("text-xs", error && "text-destructive", className)} htmlFor={formItemId} {...props} />;
+    return (
+        <Label data-slot="form-label" className={cn("text-xs", error && "text-destructive", className)} htmlFor={formItemId} {...props}>
+            {children}
+            {props["aria-required"] && <span className="text-red-500 ml-0.5">*</span>}
+        </Label>
+    );
 }
 
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {

@@ -45,7 +45,7 @@ const stats = [
     },
     {
         label: "Pengisian Survei",
-        value: overviewStats.totalSurveySubmissions,
+        value: overviewStats.totalSurveiSubmissions,
         sub: `${overviewStats.pendingSubmissions} menunggu`,
         icon: PauseCircle,
         color: "text-violet-600",

@@ -7,14 +7,14 @@ import { createSelectFromType } from "@/lib/utils";
 export enum EUserRole {
     SUPER_ADMIN = "super_admin",
     PROJECT_MANAGER = "project_manager",
-    SURVEYOR = "surveyor",
+    SurveiOR = "Surveior",
     FINANCE = "finance",
 }
 
 export const UserRoleLabels: Record<EUserRole, string> = {
     [EUserRole.SUPER_ADMIN]: "Super Admin",
     [EUserRole.PROJECT_MANAGER]: "Project Manager",
-    [EUserRole.SURVEYOR]: "Surveyor",
+    [EUserRole.SurveiOR]: "Surveior",
     [EUserRole.FINANCE]: "Finance",
 };
 
