@@ -81,6 +81,6 @@ export const projectColumns: ColumnDef<TProjectRow>[] = [
     {
         id: "aksi",
         header: "Aksi",
-        cell: ({ row }) => <DetailButton href={`/projects/${row.original.id}`} tooltip="Lihat Detail" className="rounded-md" />,
+        cell: ({ row }) => <DetailButton href={`/projects/detail?id=${row.original.id}`} tooltip="Lihat Detail" className="rounded-md" />,
     },
 ];
