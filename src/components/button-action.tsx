@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { CheckCircle2Icon, EditIcon, EyeIcon, LucideIcon, Trash2Icon, XCircleIcon } from "lucide-react";
+import { CheckCircle2Icon, EditIcon, EyeIcon, LucideIcon, Trash2Icon, Users2Icon, XCircleIcon } from "lucide-react";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 
@@ -42,6 +42,16 @@ export const DeleteButton = (props: Omit<CommonProps, "icon" | "variant">) => (
 
 export const DetailButton = (props: Omit<CommonProps, "icon" | "variant">) => (
     <IconActionButton {...props} icon={EyeIcon} variant="default" tooltip={props.tooltip ?? "Detail"} />
+);
+
+export const ClientButton = (props: Omit<CommonProps, "icon" | "variant">) => (
+    <IconActionButton
+        {...props}
+        icon={Users2Icon}
+        variant="outline"
+        className="[&_svg]:text-secondary border-secondary"
+        tooltip={props.tooltip ?? "Portal Klien"}
+    />
 );
 
 export const ApproveButton = (props: Omit<CommonProps, "icon" | "variant">) => (

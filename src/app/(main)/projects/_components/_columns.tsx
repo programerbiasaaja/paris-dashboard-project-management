@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { EProjectStatus, EProjectVisibility, ProjectStatusLabels, ProjectVisibilityLabels } from "@/types/enums";
-import { DetailButton } from "@/components/button-action";
-import type { TProjectRow } from "./_data";
+import { ClientButton, DetailButton } from "@/components/button-action";
+import { TProjectRow } from "../(list)/_components/_data";
 
 export type TFilterState = {
     status: string;
@@ -81,6 +81,11 @@ export const projectColumns: ColumnDef<TProjectRow>[] = [
     {
         id: "aksi",
         header: "Aksi",
-        cell: ({ row }) => <DetailButton href={`/projects/detail?id=${row.original.id}`} tooltip="Lihat Detail" className="rounded-md" />,
+        cell: ({ row }) => (
+            <div className="flex items-center gap-1.5">
+                <DetailButton href={`/projects/detail?id=${row.original.id}`} tooltip="Lihat Detail" className="rounded-md" />
+                <ClientButton href={`/client-portal/${row.original.id}`} tooltip="Portal Klien" className="rounded-md" />
+            </div>
+        ),
     },
 ];

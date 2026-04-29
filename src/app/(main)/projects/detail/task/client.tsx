@@ -5,13 +5,8 @@ import { Search, ListTodo, ClipboardCheck, MapPin, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-    ETaskStatus,
-    ESubmissionStatus,
-    TaskStatusLabels,
-    SubmissionStatusLabels,
-} from "@/types/enums";
-import { dummyProjectDetail, TaskKindLabels, type IProjectTask, type TTaskKind } from "../_data";
+import { ETaskStatus, ESubmissionStatus, TaskStatusLabels, SubmissionStatusLabels } from "@/types/enums";
+import { dummyProjectDetail, TaskKindLabels, type IProjectTask, type TTaskKind } from "../_components/_data";
 
 const taskStatusVariantMap: Record<ETaskStatus, string> = {
     [ETaskStatus.FOLLOW_UP]: "bg-amber-100 text-amber-700",
@@ -61,11 +56,7 @@ export default function ProjectTaskClient() {
     const filtered = useMemo(() => {
         return tasks.filter((t) => {
             const q = search.toLowerCase();
-            const matchSearch =
-                !q ||
-                t.name.toLowerCase().includes(q) ||
-                t.code.toLowerCase().includes(q) ||
-                t.assignee.toLowerCase().includes(q);
+            const matchSearch = !q || t.name.toLowerCase().includes(q) || t.code.toLowerCase().includes(q) || t.assignee.toLowerCase().includes(q);
             const matchKind = !kind || t.kind === kind;
             const matchStatus = !status || t.status === status;
             return matchSearch && matchKind && matchStatus;
@@ -135,7 +126,7 @@ export default function ProjectTaskClient() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b bg-gray-50 text-left text-xs font-medium text-muted-foreground">
+                                <tr className="text-muted-foreground border-b bg-gray-50 text-left text-xs font-medium">
                                     <th className="px-4 py-3">Kode</th>
                                     <th className="px-4 py-3">Nama</th>
                                     <th className="px-4 py-3">Jenis</th>
@@ -143,7 +134,7 @@ export default function ProjectTaskClient() {
                                     <th className="px-4 py-3">Penugasan</th>
                                     <th className="px-4 py-3">Mulai</th>
                                     <th className="px-4 py-3">Tenggat</th>
-                                    <th className="px-4 py-3 w-40">Progres</th>
+                                    <th className="w-40 px-4 py-3">Progres</th>
                                     <th className="px-4 py-3">Status</th>
                                     <th className="px-4 py-3">Submission</th>
                                 </tr>
@@ -151,7 +142,7 @@ export default function ProjectTaskClient() {
                             <tbody>
                                 {filtered.length === 0 ? (
                                     <tr>
-                                        <td colSpan={10} className="px-4 py-8 text-center text-muted-foreground">
+                                        <td colSpan={10} className="text-muted-foreground px-4 py-8 text-center">
                                             Tidak ada item yang sesuai dengan pencarian atau filter.
                                         </td>
                                     </tr>
@@ -171,7 +162,7 @@ function SummaryStat({ label, value, accent }: { label: string; value: string | 
     return (
         <Card className="p-0">
             <CardContent className="p-4">
-                <div className="text-xs text-muted-foreground">{label}</div>
+                <div className="text-muted-foreground text-xs">{label}</div>
                 <div className={`mt-1 text-lg font-semibold ${accent ?? "text-slate-700"}`}>{value}</div>
             </CardContent>
         </Card>
@@ -181,7 +172,7 @@ function SummaryStat({ label, value, accent }: { label: string; value: string | 
 function TaskRow({ task, alt }: { task: IProjectTask; alt: boolean }) {
     return (
         <tr className={alt ? "bg-gray-50/50" : "bg-white"}>
-            <td className="px-4 py-3 whitespace-nowrap font-mono text-xs">{task.code}</td>
+            <td className="px-4 py-3 font-mono text-xs whitespace-nowrap">{task.code}</td>
             <td className="px-4 py-3">
                 <div className="max-w-sm text-sm font-medium">{task.name}</div>
             </td>
@@ -191,10 +182,10 @@ function TaskRow({ task, alt }: { task: IProjectTask; alt: boolean }) {
                     {TaskKindLabels[task.kind]}
                 </span>
             </td>
-            <td className="px-4 py-3 whitespace-nowrap text-xs">{task.phase}</td>
+            <td className="px-4 py-3 text-xs whitespace-nowrap">{task.phase}</td>
             <td className="px-4 py-3 whitespace-nowrap">{task.assignee}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-xs">{formatDate(task.startDate)}</td>
-            <td className="px-4 py-3 whitespace-nowrap text-xs">{formatDate(task.dueDate)}</td>
+            <td className="px-4 py-3 text-xs whitespace-nowrap">{formatDate(task.startDate)}</td>
+            <td className="px-4 py-3 text-xs whitespace-nowrap">{formatDate(task.dueDate)}</td>
             <td className="px-4 py-3">
                 <div className="flex items-center gap-2">
                     <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-200">
@@ -209,9 +200,7 @@ function TaskRow({ task, alt }: { task: IProjectTask; alt: boolean }) {
                 </div>
             </td>
             <td className="px-4 py-3">
-                <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${taskStatusVariantMap[task.status]}`}
-                >
+                <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${taskStatusVariantMap[task.status]}`}>
                     {TaskStatusLabels[task.status]}
                 </span>
             </td>
@@ -223,7 +212,7 @@ function TaskRow({ task, alt }: { task: IProjectTask; alt: boolean }) {
                         {SubmissionStatusLabels[task.submissionStatus]}
                     </span>
                 ) : (
-                    <span className="text-xs text-muted-foreground">—</span>
+                    <span className="text-muted-foreground text-xs">—</span>
                 )}
             </td>
         </tr>

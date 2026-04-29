@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ETaskStatus, TaskStatusLabels } from "@/types/enums";
-import { dummyProjectDetail, type IPhaseActivity, type IProjectPhase } from "../_data";
+import { dummyProjectDetail, type IPhaseActivity, type IProjectPhase } from "../_components/_data";
 
 const statusBarMap: Record<ETaskStatus, string> = {
     [ETaskStatus.DONE]: "bg-green-500",
@@ -87,15 +87,13 @@ export default function ProjectTimelineClient() {
                     <div className="overflow-x-auto">
                         <div className="min-w-[900px]">
                             <div className="flex border-b bg-gray-50">
-                                <div className="w-72 shrink-0 border-r px-4 py-3 text-xs font-medium text-muted-foreground">
-                                    Fase / Aktivitas
-                                </div>
+                                <div className="text-muted-foreground w-72 shrink-0 border-r px-4 py-3 text-xs font-medium">Fase / Aktivitas</div>
                                 <div className="relative flex-1">
                                     <div className="flex h-full">
                                         {months.map((m, i) => (
                                             <div
                                                 key={i}
-                                                className="flex-1 border-r px-2 py-3 text-center text-[11px] font-medium text-muted-foreground last:border-r-0"
+                                                className="text-muted-foreground flex-1 border-r px-2 py-3 text-center text-[11px] font-medium last:border-r-0"
                                             >
                                                 {m.toLocaleDateString("id-ID", { month: "short", year: "2-digit" })}
                                             </div>
@@ -112,7 +110,7 @@ export default function ProjectTimelineClient() {
                 </CardContent>
             </Card>
 
-            <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+            <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-xs">
                 <span className="font-medium">Legenda:</span>
                 {(Object.keys(statusBarMap) as ETaskStatus[]).map((s) => (
                     <span key={s} className="inline-flex items-center gap-1.5">
@@ -136,12 +134,12 @@ function PhaseBlock({
 }) {
     return (
         <div className="border-b last:border-b-0">
-            <div className="flex bg-primary-50/40">
+            <div className="bg-primary-50/40 flex">
                 <div className="w-72 shrink-0 border-r px-4 py-3">
                     <div className="text-sm font-semibold">
                         {phase.orderIndex}. {phase.name}
                     </div>
-                    <div className="text-[11px] text-muted-foreground">
+                    <div className="text-muted-foreground text-[11px]">
                         {formatDate(phase.startDate)} – {formatDate(phase.endDate)}
                     </div>
                 </div>
@@ -149,8 +147,8 @@ function PhaseBlock({
                     <GridLines count={months.length} />
                     <div className="relative h-full min-h-12 py-3">
                         <div className="absolute inset-y-0 flex items-center" style={barStyle(phase.startDate, phase.endDate)}>
-                            <div className="relative h-6 w-full overflow-hidden rounded-md bg-primary/15">
-                                <div className="absolute inset-y-0 left-0 bg-primary" style={{ width: `${phase.progress}%` }} />
+                            <div className="bg-primary/15 relative h-6 w-full overflow-hidden rounded-md">
+                                <div className="bg-primary absolute inset-y-0 left-0" style={{ width: `${phase.progress}%` }} />
                                 <div className="relative flex h-full items-center justify-center px-2 text-[11px] font-semibold text-slate-800">
                                     {phase.progress}%
                                 </div>
@@ -181,8 +179,10 @@ function ActivityRow({
             <div className="w-72 shrink-0 border-r px-4 py-2.5 pl-8">
                 <div className="text-sm">{activity.name}</div>
                 <div className="mt-0.5 flex items-center gap-2">
-                    <span className="text-[11px] text-muted-foreground">{activity.assignee}</span>
-                    <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium ${statusBgSoftMap[activity.status]}`}>
+                    <span className="text-muted-foreground text-[11px]">{activity.assignee}</span>
+                    <span
+                        className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium ${statusBgSoftMap[activity.status]}`}
+                    >
                         {TaskStatusLabels[activity.status]}
                     </span>
                 </div>
@@ -196,9 +196,7 @@ function ActivityRow({
                                 className={`absolute inset-y-0 left-0 ${statusBarMap[activity.status]}`}
                                 style={{ width: `${activity.progress}%` }}
                             />
-                            <div className="relative flex h-full items-center px-2 text-[10px] font-medium text-slate-700">
-                                {activity.progress}%
-                            </div>
+                            <div className="relative flex h-full items-center px-2 text-[10px] font-medium text-slate-700">{activity.progress}%</div>
                         </div>
                     </div>
                 </div>
@@ -221,7 +219,7 @@ function SummaryStat({ label, value, accent }: { label: string; value: string | 
     return (
         <Card className="p-0">
             <CardContent className="p-4">
-                <div className="text-xs text-muted-foreground">{label}</div>
+                <div className="text-muted-foreground text-xs">{label}</div>
                 <div className={`mt-1 text-sm font-semibold ${accent ?? "text-slate-700"}`}>{value}</div>
             </CardContent>
         </Card>

@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Building2, Calendar, MapPin, User, Wallet, Receipt, ListChecks, GanttChartSquare } from "lucide-react";
+import { ArrowLeft, Building2, Calendar, ExternalLink, MapPin, User, Wallet, Receipt, ListChecks, GanttChartSquare, KeyRound } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EProjectStatus, EProjectVisibility, ProjectStatusLabels, ProjectVisibilityLabels } from "@/types/enums";
-import { dummyProjectDetail } from "./_data";
+import { dummyProjectDetail } from "./_components/_data";
 import ProjectPaymentClient from "./payment/client";
 import ProjectTaskClient from "./task/client";
 import ProjectTimelineClient from "./timeline/client";
@@ -48,7 +48,15 @@ export default function ProjectDetailClient({ defaultTab = "payment" }: { defaul
                             <ArrowLeft className="h-4 w-4" />
                             Kembali ke Daftar Proyek
                         </Button>
+                        <Button variant="outline" size="sm" onClick={() => router.push(`/client/projects/${project.id}`)} className="gap-1.5">
+                            <ExternalLink className="h-4 w-4" />
+                            Portal Klien
+                        </Button>
+                    </div>
+
+                    <div className="space-y-1">
                         <div className="flex items-center gap-2">
+                            <div className="text-muted-foreground text-xs font-medium tracking-wide uppercase">Detail Proyek</div>
                             <Badge className={`${statusVariantMap[project.status]} hover:${statusVariantMap[project.status]}`}>
                                 {ProjectStatusLabels[project.status]}
                             </Badge>
@@ -56,14 +64,10 @@ export default function ProjectDetailClient({ defaultTab = "payment" }: { defaul
                                 {ProjectVisibilityLabels[project.visibility]}
                             </Badge>
                         </div>
-                    </div>
-
-                    <div className="space-y-1">
-                        <div className="text-muted-foreground text-xs font-medium tracking-wide uppercase">Detail Proyek · {project.accessCode}</div>
                         <h1 className="text-xl font-semibold tracking-tight text-balance">{project.name}</h1>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+                    <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
                         <InfoTile icon={<Building2 className="h-4 w-4" />} label="Klien" value={project.client} />
                         <InfoTile icon={<User className="h-4 w-4" />} label="PIC" value={project.pic} />
                         <InfoTile icon={<MapPin className="h-4 w-4" />} label="Lokasi" value={`${project.city}, ${project.province}`} />
@@ -72,6 +76,7 @@ export default function ProjectDetailClient({ defaultTab = "payment" }: { defaul
                             label="Periode"
                             value={`${formatDate(project.startDate)} – ${formatDate(project.endDate)}`}
                         />
+                        <InfoTile icon={<KeyRound className="h-4 w-4" />} label="Kode Akses" value={project.accessCode} />
                     </div>
 
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">

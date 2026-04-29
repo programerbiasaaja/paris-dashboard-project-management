@@ -3,13 +3,7 @@
 import { useMemo } from "react";
 import { CheckCircle2, Clock, AlertTriangle, CircleDashed, Wallet, FileText } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-    dummyProjectDetail,
-    PaymentStatusLabels,
-    PaymentTermTypeLabels,
-    type IProjectPayment,
-    type TPaymentStatus,
-} from "../_data";
+import { dummyProjectDetail, PaymentStatusLabels, PaymentTermTypeLabels, type IProjectPayment, type TPaymentStatus } from "../_components/_data";
 
 const statusVariantMap: Record<TPaymentStatus, string> = {
     PAID: "bg-green-100 text-green-700",
@@ -62,12 +56,7 @@ export default function ProjectPaymentClient() {
                     value={formatIDR(totalContractValue)}
                     accent="text-slate-700"
                 />
-                <SummaryCard
-                    icon={<Wallet className="h-4 w-4" />}
-                    label="Total Tertagih"
-                    value={formatIDR(summary.billed)}
-                    accent="text-blue-700"
-                />
+                <SummaryCard icon={<Wallet className="h-4 w-4" />} label="Total Tertagih" value={formatIDR(summary.billed)} accent="text-blue-700" />
                 <SummaryCard
                     icon={<CheckCircle2 className="h-4 w-4" />}
                     label="Telah Diterima"
@@ -88,7 +77,7 @@ export default function ProjectPaymentClient() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b bg-gray-50 text-left text-xs font-medium text-muted-foreground">
+                                <tr className="text-muted-foreground border-b bg-gray-50 text-left text-xs font-medium">
                                     <th className="px-4 py-3">Termin</th>
                                     <th className="px-4 py-3">Deskripsi</th>
                                     <th className="px-4 py-3 text-right">Persen</th>
@@ -123,28 +112,16 @@ export default function ProjectPaymentClient() {
     );
 }
 
-function SummaryCard({
-    icon,
-    label,
-    value,
-    sub,
-    accent,
-}: {
-    icon: React.ReactNode;
-    label: string;
-    value: string;
-    sub?: string;
-    accent: string;
-}) {
+function SummaryCard({ icon, label, value, sub, accent }: { icon: React.ReactNode; label: string; value: string; sub?: string; accent: string }) {
     return (
         <Card className="p-0">
             <CardContent className="p-4">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <div className="text-muted-foreground flex items-center gap-2 text-xs">
                     {icon}
                     <span>{label}</span>
                 </div>
                 <div className={`mt-2 text-lg font-semibold ${accent}`}>{value}</div>
-                {sub && <div className="mt-1 text-xs text-muted-foreground">{sub}</div>}
+                {sub && <div className="text-muted-foreground mt-1 text-xs">{sub}</div>}
             </CardContent>
         </Card>
     );
@@ -155,22 +132,20 @@ function PaymentRow({ payment, alt }: { payment: IProjectPayment; alt: boolean }
         <tr className={alt ? "bg-gray-50/50" : "bg-white"}>
             <td className="px-4 py-3 align-top">
                 <div className="font-medium">Termin {payment.termNo}</div>
-                <div className="text-xs text-muted-foreground">{PaymentTermTypeLabels[payment.termType]}</div>
+                <div className="text-muted-foreground text-xs">{PaymentTermTypeLabels[payment.termType]}</div>
             </td>
             <td className="px-4 py-3 align-top">
                 <div className="max-w-sm text-sm">{payment.description}</div>
-                {payment.notes && <div className="mt-1 text-xs text-muted-foreground italic">{payment.notes}</div>}
+                {payment.notes && <div className="text-muted-foreground mt-1 text-xs italic">{payment.notes}</div>}
             </td>
             <td className="px-4 py-3 text-right align-top whitespace-nowrap">{payment.percentage}%</td>
             <td className="px-4 py-3 text-right align-top whitespace-nowrap">{formatIDR(payment.amount)}</td>
             <td className="px-4 py-3 text-right align-top whitespace-nowrap text-green-700">{formatIDR(payment.paidAmount)}</td>
-            <td className="px-4 py-3 align-top whitespace-nowrap text-xs">{payment.invoiceNo}</td>
+            <td className="px-4 py-3 align-top text-xs whitespace-nowrap">{payment.invoiceNo}</td>
             <td className="px-4 py-3 align-top whitespace-nowrap">{formatDate(payment.dueDate)}</td>
             <td className="px-4 py-3 align-top whitespace-nowrap">{formatDate(payment.paidDate)}</td>
             <td className="px-4 py-3 align-top">
-                <span
-                    className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${statusVariantMap[payment.status]}`}
-                >
+                <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${statusVariantMap[payment.status]}`}>
                     {statusIconMap[payment.status]}
                     {PaymentStatusLabels[payment.status]}
                 </span>

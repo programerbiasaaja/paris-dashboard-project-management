@@ -2,25 +2,46 @@
 
 import { useState, useMemo } from "react";
 import { PlusIcon, Search, SlidersHorizontal, X } from "lucide-react";
+import { ColumnDef } from "@tanstack/react-table";
 import { AdminRouteScaffold } from "@/components/dashboard/admin-route-scaffold";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTable } from "@/components/table/data-table";
-import { dummyProjects } from "./_data";
-import { projectColumns, emptyFilter, type TFilterState } from "./_columns";
-import { FilterDialog } from "./_filter-dialog";
+import { ClientButton, DetailButton } from "@/components/button-action";
+import { EProjectStatus, EProjectVisibility, ProjectStatusLabels, ProjectVisibilityLabels } from "@/types/enums";
+import { dummyProjects } from "./_components/_data";
+import type { TProjectRow } from "./_components/_data";
+import { FilterDialog } from "./_components/_filter-dialog";
 import { useRouter } from "next/navigation";
+
+export type TFilterState = {
+    status: string;
+    visibility: string;
+    year: string;
+    pic: string;
+};
+
+export const emptyFilter: TFilterState = { status: "", visibility: "", year: "", pic: "" };
+
+const statusVariantMap: Record<EProjectStatus, string> = {
+    [EProjectStatus.PROCESS]: "bg-blue-100 text-blue-700",
+    [EProjectStatus.HOLD]: "bg-amber-100 text-amber-700",
+    [EProjectStatus.DONE]: "bg-green-100 text-green-700",
+};
+
+const visibilityVariantMap: Record<EProjectVisibility, string> = {
+    [EProjectVisibility.PUBLIC]: "bg-emerald-100 text-emerald-700",
+    [EProjectVisibility.PRIVATE]: "bg-slate-100 text-slate-600",
+};
 
 export default function ProjectsClient() {
     const router = useRouter();
     const [search, setSearch] = useState("");
     const [filterOpen, setFilterOpen] = useState(false);
     const [filter, setFilter] = useState<TFilterState>(emptyFilter);
-
     const picOptions = useMemo(() => [...new Set(dummyProjects.map((p) => p.pic.name))].sort(), []);
     const yearOptions = useMemo(() => [...new Set(dummyProjects.map((p) => p.year))].sort(), []);
-
     const activeFilterCount = Object.values(filter).filter(Boolean).length;
 
     const filtered = useMemo(() => {
@@ -42,6 +63,73 @@ export default function ProjectsClient() {
         total_pages: 1,
         total_items: filtered.length,
     };
+
+    const projectColumns: ColumnDef<TProjectRow>[] = [
+        {
+            accessorKey: "name",
+            header: "Nama Proyek",
+            cell: ({ getValue }) => <span className="line-clamp-2 max-w-xs font-medium">{getValue<string>()}</span>,
+        },
+        {
+            id: "client",
+            header: "Klien",
+            cell: ({ row }) => <span className="text-muted-foreground line-clamp-2 max-w-[200px]">{row.original.client.name}</span>,
+        },
+        {
+            id: "pic",
+            header: "PIC",
+            cell: ({ row }) => <span className="whitespace-nowrap">{row.original.pic.name}</span>,
+        },
+        {
+            accessorKey: "year",
+            header: "Tahun",
+            cell: ({ getValue }) => <span className="whitespace-nowrap">{getValue<number>()}</span>,
+        },
+        {
+            id: "location",
+            header: "Lokasi",
+            cell: ({ row }) => (
+                <div className="whitespace-nowrap">
+                    <div className="text-sm">{row.original.city}</div>
+                    <div className="text-muted-foreground text-xs">{row.original.province}</div>
+                </div>
+            ),
+        },
+        {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ getValue }) => {
+                const status = getValue<EProjectStatus>();
+                return (
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${statusVariantMap[status]}`}>
+                        {ProjectStatusLabels[status]}
+                    </span>
+                );
+            },
+        },
+        {
+            accessorKey: "visibility",
+            header: "Visibilitas",
+            cell: ({ getValue }) => {
+                const vis = getValue<EProjectVisibility>();
+                return (
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${visibilityVariantMap[vis]}`}>
+                        {ProjectVisibilityLabels[vis]}
+                    </span>
+                );
+            },
+        },
+        {
+            id: "aksi",
+            header: "Aksi",
+            cell: ({ row }) => (
+                <div className="flex items-center gap-1.5">
+                    <DetailButton href={`/projects/detail?id=${row.original.id}`} tooltip="Lihat Detail" className="rounded-md" />
+                    <ClientButton href={`/client-portal/${row.original.id}`} tooltip="Portal Klien" className="rounded-md" />
+                </div>
+            ),
+        },
+    ];
 
     return (
         <div className="space-y-4">

@@ -9,12 +9,12 @@ import { AdminRouteScaffold } from "@/components/dashboard/admin-route-scaffold"
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { EProjectStatus, EProjectVisibility } from "@/types/enums";
-import { projectFormSchema, type TProjectForm } from "./_schema";
-import { Stepper, projectSteps } from "./_stepper";
-import { StepDetail } from "./_step-detail";
-import { StepPhases } from "./_step-phases";
-import { StepTasks } from "./_step-tasks";
-import { StepReview } from "./_step-review";
+import { projectFormSchema, type TProjectForm } from "./_components/_schema";
+import { Stepper, projectSteps } from "./_components/_stepper";
+import { StepDetail } from "./_components/_step-detail";
+import { StepPhases } from "./_components/_step-phases";
+import { StepTasks } from "./_components/_step-tasks";
+import { StepReview } from "./_components/_step-review";
 
 const stepFieldMap: Record<number, (keyof TProjectForm | string)[]> = {
     1: ["detail"],
