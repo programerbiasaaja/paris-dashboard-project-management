@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -11,8 +12,10 @@ import {
     CalendarIcon,
     DownloadIcon,
     FileTextIcon,
+    ImageIcon,
     LockKeyholeIcon,
     MapPinIcon,
+    SproutIcon,
     ShieldCheckIcon,
     UserIcon,
 } from "lucide-react";
@@ -26,6 +29,23 @@ import { Input } from "@/components/ui/input";
 import { EProjectStatus, ETaskStatus, ProjectStatusLabels, TaskStatusLabels } from "@/types/enums";
 import type { IProjectFile } from "@/types/project";
 import type { IProjectPhase } from "@/app/(main)/projects/detail/_components/_data";
+import type { TPlantingZone } from "./_components/PlantingAreaMap";
+import type { TPlantingPhoto } from "./_components/_plantingData";
+
+const PlantingAreaMap = dynamic(() => import("./_components/PlantingAreaMap"), {
+    ssr: false,
+    loading: () => (
+        <div className="border-border/70 bg-muted/40 text-muted-foreground flex h-[420px] w-full items-center justify-center rounded-lg border text-sm">
+            Memuat peta area penanaman…
+        </div>
+    ),
+});
+
+export type TPortalPlantingArea = {
+    zones: TPlantingZone[];
+    center: [number, number];
+    photos: TPlantingPhoto[];
+};
 
 type TPortalProject = {
     id: string;
@@ -63,7 +83,15 @@ const accessCodeSchema = z.object({
 });
 type TAccessCodeForm = z.infer<typeof accessCodeSchema>;
 
-export default function ClientPortalClient({ project, phases }: { project: TPortalProject; phases: IProjectPhase[] }) {
+export default function ClientPortalClient({
+    project,
+    phases,
+    plantingArea,
+}: {
+    project: TPortalProject;
+    phases: IProjectPhase[];
+    plantingArea?: TPortalPlantingArea;
+}) {
     const [unlocked, setUnlocked] = useState(false);
 
     const overallProgress = useMemo(() => {
@@ -158,6 +186,78 @@ export default function ClientPortalClient({ project, phases }: { project: TPort
                     </div>
                 </CardContent>
             </Card>
+
+            {plantingArea && (
+                <Card className="p-0">
+                    <CardContent className="p-5">
+                        <div className="mb-3 flex items-start justify-between gap-3">
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <SproutIcon className="h-4 w-4 text-green-700" />
+                                    <h2 className="text-base font-semibold">Peta Area Penanaman</h2>
+                                </div>
+                                <p className="text-muted-foreground text-xs">
+                                    Sebaran zona reklamasi & revegetasi beserta progres penanaman per zona.
+                                </p>
+                            </div>
+                            <div className="hidden gap-3 text-xs sm:flex">
+                                <LegendDot color="#16a34a" label="≥ 80%" />
+                                <LegendDot color="#65a30d" label="50–79%" />
+                                <LegendDot color="#ca8a04" label="20–49%" />
+                                <LegendDot color="#dc2626" label="< 20%" />
+                            </div>
+                        </div>
+                        <PlantingAreaMap zones={plantingArea.zones} center={plantingArea.center} />
+                        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                            {plantingArea.zones.map((zone) => (
+                                <div key={zone.id} className="border-border/70 rounded-lg border p-3">
+                                    <div className="text-xs font-medium">{zone.name}</div>
+                                    <div className="text-primary mt-1 text-lg font-semibold tabular-nums">{zone.progress}%</div>
+                                    <div className="text-muted-foreground text-[11px]">
+                                        {zone.plantedTrees.toLocaleString("id-ID")} / {zone.targetTrees.toLocaleString("id-ID")} bibit
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
+
+            {plantingArea && plantingArea.photos.length > 0 && (
+                <Card className="p-0">
+                    <CardContent className="p-5">
+                        <div className="mb-3">
+                            <div className="flex items-center gap-2">
+                                <ImageIcon className="h-4 w-4 text-secondary-700" />
+                                <h2 className="text-base font-semibold">Dokumentasi Kegiatan Penanaman</h2>
+                            </div>
+                            <p className="text-muted-foreground text-xs">Foto lapangan dari kegiatan reklamasi dan revegetasi.</p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                            {plantingArea.photos.map((photo) => (
+                                <figure
+                                    key={photo.id}
+                                    className="border-border/70 group overflow-hidden rounded-lg border bg-muted/40"
+                                >
+                                    <div className="aspect-[4/3] w-full overflow-hidden">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src={photo.url}
+                                            alt={photo.caption}
+                                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <figcaption className="space-y-0.5 p-2.5">
+                                        <div className="text-muted-foreground text-[11px]">{formatDate(photo.takenAt)}</div>
+                                        <div className="line-clamp-2 text-xs">{photo.caption}</div>
+                                    </figcaption>
+                                </figure>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
 
             <Card className="p-0">
                 <CardContent className="p-5">
@@ -278,6 +378,15 @@ function InfoTile({ icon, label, value }: { icon: React.ReactNode; label: string
                 <div className="mt-1 line-clamp-2 text-sm font-medium">{value}</div>
             </CardContent>
         </Card>
+    );
+}
+
+function LegendDot({ color, label }: { color: string; label: string }) {
+    return (
+        <div className="text-muted-foreground flex items-center gap-1.5">
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
+            <span>{label}</span>
+        </div>
     );
 }
 

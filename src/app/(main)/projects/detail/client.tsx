@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Building2, Calendar, ExternalLink, MapPin, User, Wallet, Receipt, ListChecks, GanttChartSquare, KeyRound } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EProjectStatus, EProjectVisibility, ProjectStatusLabels, ProjectVisibilityLabels } from "@/types/enums";
 import { dummyProjectDetail } from "./_components/_data";
+import { dummyProjects } from "../(list)/_components/_data";
 import ProjectPaymentClient from "./payment/client";
 import ProjectTaskClient from "./task/client";
 import ProjectTimelineClient from "./timeline/client";
@@ -36,7 +37,27 @@ type TTabValue = "payment" | "task" | "timeline";
 
 export default function ProjectDetailClient({ defaultTab = "payment" }: { defaultTab?: TTabValue }) {
     const router = useRouter();
-    const project = dummyProjectDetail;
+    const searchParams = useSearchParams();
+    const id = searchParams.get("id");
+    const listProject = dummyProjects.find((p) => p.id === id);
+    const project = {
+        ...dummyProjectDetail,
+        id: listProject?.id ?? dummyProjectDetail.id,
+        name: listProject?.name ?? dummyProjectDetail.name,
+        client: listProject?.client?.name ?? dummyProjectDetail.client,
+        pic: listProject?.pic?.name ?? dummyProjectDetail.pic,
+        province: listProject?.province ?? dummyProjectDetail.province,
+        city: listProject?.city ?? dummyProjectDetail.city,
+        year: listProject?.year ?? dummyProjectDetail.year,
+        startDate: listProject?.startDate ?? dummyProjectDetail.startDate,
+        endDate: listProject?.endDate ?? dummyProjectDetail.endDate,
+        status: listProject?.status ?? dummyProjectDetail.status,
+        visibility: listProject?.visibility ?? dummyProjectDetail.visibility,
+        totalContractValue: listProject?.totalContractValue ?? dummyProjectDetail.totalContractValue,
+        totalBudget: listProject?.totalBudget ?? dummyProjectDetail.totalBudget,
+        totalCost: listProject?.totalCost ?? dummyProjectDetail.totalCost,
+        accessCode: listProject?.access_code ?? dummyProjectDetail.accessCode,
+    };
     const [tab, setTab] = useState<TTabValue>(defaultTab);
 
     return (
@@ -48,7 +69,7 @@ export default function ProjectDetailClient({ defaultTab = "payment" }: { defaul
                             <ArrowLeft className="h-4 w-4" />
                             Kembali ke Daftar Proyek
                         </Button>
-                        <Button variant="outline" size="sm" onClick={() => router.push(`/client/projects/${project.id}`)} className="gap-1.5">
+                        <Button variant="outline" size="sm" onClick={() => router.push(`/client-portal/projects/${project.id}`)} className="gap-1.5">
                             <ExternalLink className="h-4 w-4" />
                             Portal Klien
                         </Button>
