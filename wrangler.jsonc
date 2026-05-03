@@ -1,27 +1,25 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "paris-dashboard-project-management",
 	"main": ".open-next/worker.js",
-	"name": "boilerplate-dashboard-nextjs",
 	"compatibility_date": "2026-05-03",
 	"compatibility_flags": [
-		"nodejs_compat",
-		"global_fetch_strictly_public"
+		"nodejs_compat"
 	],
 	"assets": {
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
 	},
+	"build": {
+		"command": "bun run build:cloudflare"
+	},
 	"services": [
 		{
-			// Self-reference service binding, the service name must match the worker name
-			// see https://opennext.js.org/cloudflare/caching
 			"binding": "WORKER_SELF_REFERENCE",
-			"service": "boilerplate-dashboard-nextjs"
+			"service": "paris-dashboard-project-management"
 		}
 	],
 	"images": {
-		// Enable image optimization
-		// see https://opennext.js.org/cloudflare/howtos/image
 		"binding": "IMAGES"
 	}
 }
