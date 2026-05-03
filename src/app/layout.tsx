@@ -47,6 +47,11 @@ export default function RootLayout({
                                         }}
                                     />
                                     <ModalProvider />
+                                    {process.env.NEXT_PUBLIC_APP_VERSION && (
+                                        <div className="text-muted-foreground pointer-events-none fixed right-4 bottom-2 z-50 text-[10px]">
+                                            {process.env.NEXT_PUBLIC_APP_VERSION}
+                                        </div>
+                                    )}
                                 </TooltipProvider>
                             </LoaderProvider>
                         </LoadingProvider>

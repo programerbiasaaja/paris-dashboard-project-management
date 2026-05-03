@@ -23,7 +23,14 @@ jobs:
         run: bun install
 
       - name: Build application
+        env:
+          NEXT_PUBLIC_APP_VERSION: ${{ github.ref_name }}
         run: bun run build
+
+      - name: Setup Node.js (Required for Wrangler v4)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
