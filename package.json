@@ -1,11 +1,10 @@
 {
-    "name": "boilerplate-dashboard-nextjs",
+    "name": "paris-dashboard-project-management",
     "version": "0.1.0",
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
-        "build:cloudflare": "opennextjs-cloudflare build",
+        "build": "next build && opennextjs-cloudflare build --skipNextBuild",
         "start": "next start",
         "lint": "eslint"
     },
