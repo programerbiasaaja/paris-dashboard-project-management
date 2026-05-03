@@ -1,0 +1,15 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "paris-dashboard-project-management"
+main = ".open-next/worker.js"
+compatibility_date = "2026-05-03"
+compatibility_flags = ["nodejs_compat"]
+
+# Assets configuration for Cloudflare Pages
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# If you use R2 for caching, add it here
+# [[r2_buckets]]
+# binding = "NEXT_CACHE_BUCKET"
+# bucket_name = "your-bucket-name"
